@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Arduino SD Card Web Page</title>
+</head>
+<script>
+	function GetTmp()
+	{
+		nocache = "&nocache=" + Math.random() * 1000000;
+		var request = new XMLHttpRequest();
+		request.onreadystatechange = function()
+		{
+			if (this.readyState == 4){
+				if (this.status == 200){
+					if (this.reponseText != null){
+						document.getElementById("tmp_txt").innerHTML = this.reponseText;
+					}
+				}
+			}
+		}
+		request.open("GET", "ajax_tmp" + nocache, true);
+		request.send(null);
+		setTimeout("GetTmp()", 1000);
+	}
+</script>
+<body onload="GetTmp()">
+	<h1>Hello from the Arduino SD Card!</h1>
+	<p id="tmp_txt">Temp not requested</p>
+</body>
+</html>
